@@ -23,4 +23,5 @@ urlpatterns = [
     path('products/', views.ProductListView.as_view(), name='product-list'),  # Liste des produits
     path('orders/', views.OrderCreateView.as_view(), name='order-create'),  # Création d'une commande
     path('recommendations/', views.ProductRecommendationView.as_view(), name='product-recommendations'),
+    path('orders/<int:order_id>/products/', views.OrderProductsView.as_view(), name='order-products'),
 ]

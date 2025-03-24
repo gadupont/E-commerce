@@ -45,3 +45,13 @@ class OrderSerializer(serializers.ModelSerializer):
 
 class RecommendationSerializer(serializers.Serializer):
     panier = serializers.ListField(child=serializers.IntegerField())
+
+
+class ProductWithQuantitySerializer(serializers.ModelSerializer):
+    product_name = serializers.CharField(source='product.name')
+    product_id = serializers.IntegerField(source='product.id')
+    quantity = serializers.IntegerField()
+
+    class Meta:
+        model = OrderProduct
+        fields = ['product_id', 'product_name', 'quantity']
