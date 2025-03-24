@@ -44,7 +44,7 @@ Le serveur sera accessible à l'adresse suivante : http://localhost:8000
 ### 7. Utilisation de l'API
 
 
-L'API de votre projet permet de :
+L'API permet de :
 
 Récupérer les produits d'une commande : Vous pouvez tester l'API pour récupérer la liste des produits associés à une commande en particulier avec 
 curl -X GET http://localhost:8000/orders/order_ID/products/       avec order_ID étant le numéro de la commande
