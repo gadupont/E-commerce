@@ -28,8 +28,6 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = ['email', 'products']
 
     def create(self, validated_data):
-        print(validated_data)
-        print("    #####                                                                 #######")
         products_data = validated_data.pop('orderproduct_set')  # Extract products data
         order = Order.objects.create(email=validated_data['email'])  # Create the order
 

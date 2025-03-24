@@ -1,8 +1,4 @@
 from django.shortcuts import render
-
-# Create your views here.
-
-
 from rest_framework import generics , status 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -11,8 +7,11 @@ from .serializers import ProductSerializer, OrderSerializer, RecommendationSeria
 from .utils import recommander_produits
 
 
-# Vue pour lister tous les produits
 class ProductListView(generics.ListCreateAPIView):
+    """
+    Cette vue permet de lister tous les produits ou d'en créer un nouveau.
+    Utilise le sérialiseur ProductSerializer pour gérer les données des produits.
+    """
     queryset = Product.objects.all()  # Liste tous les produits
     serializer_class = ProductSerializer  # Utilise le serializer ProductSerializer
 
@@ -20,14 +19,20 @@ class ProductListView(generics.ListCreateAPIView):
 
 
 class OrderCreateView(generics.CreateAPIView):
+    """
+    Cette vue permet de créer une nouvelle commande.
+    Utilise le sérialiseur OrderSerializer pour gérer la création de la commande.
+    Les produits associés sont automatiquement ajoutés via le serializer.
+    """
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
     def perform_create(self, serializer):
-        # Crée la commande avec le serializer
+        """
+        Crée la commande avec le serializer.
+        Les produits ont déjà été ajoutés via le serializer, donc pas besoin de les ajouter ici.
+        """
         order = serializer.save()
-
-        # Les produits ont déjà été ajoutés via le serializer, donc pas besoin de les ajouter à la main ici
         return order
     
 
@@ -35,6 +40,10 @@ class OrderCreateView(generics.CreateAPIView):
 
 
 class ProductRecommendationView(APIView):
+    """
+    Cette vue permet de recommander des produits basés sur un panier donné.
+    Utilise la fonction recommander_produits pour obtenir les produits recommandés.
+    """
     def post(self, request):
         
         panier = request.data.get('panier')
@@ -43,8 +52,6 @@ class ProductRecommendationView(APIView):
         # Récupérer les recommandations en fonction du panier
         recommended_products_ids = recommander_produits(panier)
 
-        # switch au svd 
-        #recommended_products_ids = recommander_produits_cosine(panier)
 
         recommended_products = Product.objects.filter(id__in=recommended_products_ids)
         

@@ -27,12 +27,27 @@ def build_collaborative_matrix():
 
     return matrix, product_ids, pid_to_idx
 
-def build_svd_matrix(matrix, n_components=50):
+def build_svd_matrix(matrix, explained_variance_threshold=0.9):
     """
-    Applique SVD pour réduire la dimension de la matrice produit-commande.
+    Applique SVD pour réduire la dimension de la matrice produit-commande,
+    en choisissant le nombre de composantes de manière à expliquer au moins 90% de la variance.
     """
+    # Appliquer SVD sans spécifier n_components
+    svd = TruncatedSVD(n_components=min(matrix.shape))  # Initialiser SVD avec le maximum possible de composantes
+    svd.fit(matrix)
+    
+    # Calculer la variance cumulée expliquée
+    explained_variance = svd.explained_variance_ratio_.cumsum()
+    
+    # Trouver le nombre de composantes nécessaires pour atteindre 90% de variance expliquée
+    n_components = np.argmax(explained_variance >= explained_variance_threshold) + 1
+    
+    # Réappliquer SVD avec le bon n_components
     svd = TruncatedSVD(n_components=n_components)
-    matrix_svd = svd.fit_transform(matrix)  # Réduit la matrice
+    matrix_svd = svd.fit_transform(matrix)
+    
+    #print(f"Nombre de composantes pour expliquer {explained_variance_threshold*100}% de la variance : {n_components}")
+
     return matrix_svd
 
 def build_similarity_matrix(matrix_svd=None, matrix=None):
