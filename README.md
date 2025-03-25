@@ -36,7 +36,6 @@ cd .\Ecommerce\
 
 python manage.py runserver
 
-Le serveur sera accessible à l'adresse suivante : http://localhost:8000
 
 
 ### 5. Utilisation de l'API
