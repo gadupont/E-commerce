@@ -32,6 +32,8 @@ pip install -r requirements.txt
 
 ### 4. Lancer le serveur Django
 
+cd .\Ecommerce\
+
 python manage.py runserver
 
 Le serveur sera accessible à l'adresse suivante : http://localhost:8000
