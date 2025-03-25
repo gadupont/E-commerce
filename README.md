@@ -44,17 +44,25 @@ python manage.py runserver
 L'API permet de :
 
 Récupérer les produits d'une commande : Vous pouvez tester l'API pour récupérer la liste des produits associés à une commande en particulier avec 
-curl -X GET http://localhost:8000/orders/order_ID/products/       avec order_ID étant le numéro de la commande
+
+```sh
+curl -X GET http://localhost:8000/orders/order_ID/products/ 
+```
+avec order_ID étant le numéro de la commande
 
 
-Créer une commande : Vous pouvez envoyer une requête POST pour créer une commande avec des produits associés avec le format suivant 
+Créer une commande : Vous pouvez envoyer une requête POST pour créer une commande avec des produits associés avec le format suivant
+```sh
 curl -X POST http://localhost:8000/orders/ -H "Content-Type: application/json" -d "{\"email\":\"test@example.com\",\"products\":[{\"product_id\":1,\"quantity\":2},{\"product_id\":2,\"quantity\":1}]}"
+```
 
 
 Obtenir des recommandations de produits : En envoyant un panier d'articles, l'API retourne une liste de produits recommandés basés sur la similarité des produits.
 
-example : curl -X POST "http://localhost:8000/recommendations/" -H "Content-Type: application/json" -d "{\"panier\": [1, 2, 3]}"
-
+example : 
+```sh
+curl -X POST "http://localhost:8000/recommendations/" -H "Content-Type: application/json" -d "{\"panier\": [1, 2, 3]}"
+```
 
 
 ## Améliorations possibles
