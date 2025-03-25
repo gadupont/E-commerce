@@ -20,6 +20,7 @@ git clone https://github.com/gadupont/E-commerce.git
 ### 2. Créer et activer un environnement virtuel
 
 python -m venv venv
+
 source venv/bin/activate  # Sur Windows, utilisez `venv\Scripts\activate`
 
 
@@ -29,19 +30,14 @@ pip install -r requirements.txt
 
 
 
-### 4. Configurer la base de données
-
-python manage.py migrate
-
-
-### 6. Lancer le serveur Django
+### 4. Lancer le serveur Django
 
 python manage.py runserver
 
 Le serveur sera accessible à l'adresse suivante : http://localhost:8000
 
 
-### 7. Utilisation de l'API
+### 5. Utilisation de l'API
 
 
 L'API permet de :
